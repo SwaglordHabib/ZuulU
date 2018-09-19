@@ -11,6 +11,16 @@ public class Spieler extends Entity {
 		this.gegenstaende = new LinkedList<Gegenstand>();
 	}
 
+	public Gegenstand legeGegenstandAb(String name) {
+		for (Gegenstand g : gegenstaende) {
+			if (g.getName().equals(name)) {
+				gegenstaende.remove(g);
+				return g;
+			}
+		}
+		return null;
+	}
+
 	public boolean gegenstandAufnehmen(Gegenstand g) {
 		if (ermittleAktuellesGewicht() + g.getGewicht() <= this.tragkraft) {
 			gegenstaende.add(g);
@@ -18,6 +28,10 @@ public class Spieler extends Entity {
 		} else {
 			return false;
 		}
+	}
+
+	public LinkedList<Gegenstand> getGegenstaende() {
+		return gegenstaende;
 	}
 
 	private double ermittleAktuellesGewicht() {
@@ -41,16 +55,6 @@ public class Spieler extends Entity {
 		// Zustand
 		ergebnis.append("/nZustand: " + aktuellerZustand.toString());
 		return ergebnis.toString();
-	}
-
-	public Gegenstand legeGegenstandAb(String name) {
-		for (Gegenstand g : gegenstaende) {
-			if (g.getName().equals(name)) {
-				gegenstaende.remove(g);
-				return g;
-			}
-		}
-		return null;
 	}
 
 	public double getTragkraft() {

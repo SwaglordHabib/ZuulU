@@ -8,4 +8,5 @@ public interface ICommands {
 	String getCommand();
 
 	String getSyntax();
+
 }
