@@ -7,6 +7,12 @@ public class CommandDrop implements ICommands {
 	private Scanner scanner;
 	private static ICommands instance = new CommandDrop();
 
+	/**
+	 * Prüfen ob eine Objekt der Klasse CommandDrop bereits vorhanden ist. Ist
+	 * dem nicht so, wird ein neues Objekt erstellt.
+	 * 
+	 * @return die Instanz des Zustandes
+	 */
 	public static ICommands getInstance() {
 		if (instance == null) {
 			instance = new CommandDrop();
@@ -14,15 +20,30 @@ public class CommandDrop implements ICommands {
 		return instance;
 	}
 
+	/**
+	 * Konstruktor der Klasse CommandDrop
+	 */
 	private CommandDrop() {
 
 	}
 
+	/**
+	 * Initialisiert das erstellte Objekt der Klasse CommandDrop
+	 * 
+	 * @param e
+	 *            ist der Spieler, welcher ein Objekt ablegt
+	 * @param raum
+	 *            ist der Raum, in welchen das Objekt abgelegt wird
+	 */
 	public void init(Spieler e, Raum raum) {
 		this.e = e;
 		this.raum = raum;
 	}
 
+	/**
+	 * Wird aufgerufen, sofern festgestellt wurde, dass der Befehl 'drop'
+	 * ausgeführt wird.
+	 */
 	@Override
 	public void execute() {
 		String eingabe;
@@ -39,19 +60,29 @@ public class CommandDrop implements ICommands {
 		}
 	}
 
+	/**
+	 * Gibt die lange Beschreibung als String zurück.
+	 */
 	@Override
 	public String getDescription() {
 		return "Mit dem Befehl 'drop' und der Angabe eines Items, wird das bestimmte Item auf den Boden des Raumes gelegt.";
 	}
 
+	/**
+	 * Gibt den einzugebenen Befehl als String zurück.
+	 */
 	@Override
 	public String getCommand() {
-		return "take";
+		return "drop";
 	}
 
+	/**
+	 * Gib bei falsch Eingabe, oder bei dem Befehl Hilfe, die korrekte Syntax
+	 * als String zurück.
+	 */
 	@Override
 	public String getSyntax() {
-		return "Befehl 'take': take <Itemname>";
+		return "Befehl 'drop': drop <Itemname>";
 	}
 
 }

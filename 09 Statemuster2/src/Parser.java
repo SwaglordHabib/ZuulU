@@ -63,6 +63,11 @@ public class Parser
         }
     }
     
+	/**
+	 * Gibt alle gültigen Befehle als String zurück
+	 * 
+	 * @return alle Befehle (String)
+	 */
     public String getAlleBefehle()
     {
     	return befehle.getAlleGueltigenBefehle();

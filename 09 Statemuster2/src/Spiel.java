@@ -45,7 +45,7 @@ public class Spiel {
 	}
 
 	/**
-	 * Erzeuge alle Räume und verbinde ihre Ausgänge miteinander.
+	 * Erzeuge alle Räume und verbindet ihre Ausgänge miteinander.
 	 */
 	private void raeumeAnlegen() {
 		Raum draussen, hoersaal, cafeteria, labor, buero, teleporter;
@@ -152,7 +152,7 @@ public class Spiel {
 		else if (befehlswort.equals("quit")) {
 			moechteBeenden = beenden(befehl);
 		} else if (befehlswort.equals("look")) {
-			umsehen();
+			rauminfoAusgeben();
 		} else if (befehlswort.equals("take")) {
 			nimmGegenstand(befehl);
 			System.out.println(spieler.zeigeStatus());
@@ -222,15 +222,18 @@ public class Spiel {
 		}
 	}
 
+	/**
+	 * Gibt alle Informationen des Raumes in der Konsole aus
+	 */
 	private void rauminfoAusgeben() {
 		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
 		System.out.println();
 	}
 
-	private void umsehen() {
-		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-	}
-
+	/**
+	 * 
+	 * @param befehl
+	 */
 	private void nimmGegenstand(Befehl befehl) {
 		if (!befehl.hatZweitesWort()) {
 			// Gibt es kein zweites Wort, wissen wir nicht, wohin...
@@ -290,16 +293,15 @@ public class Spiel {
 
 	}
 
-	public static int getRandom() {
-		Random rnd = new Random();
-		return rnd.nextInt(raumliste.size() - 1));
-	}
-
+	/**
+	 * Erstellt Monster, welche einen zufälligen Raum zugewiesen werden
+	 */
 	private void spawnMobs() {
+		Random rnd = new Random();
 		for (int i = 0; i < raumliste.size() / 2; i++) {
-			rnd.setSeed(System.currentTimeMillis());
+			rnd.setSeed(System.nanoTime());
 			Monster m = new Monster(100, 5);
-			raumliste.get(getRandom()).addMonster(m);
+			raumliste.get(rnd.nextInt(raumliste.size() - 1)).addMonster(m);
 		}
 	}
 }

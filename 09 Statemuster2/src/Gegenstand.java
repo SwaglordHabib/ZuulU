@@ -4,6 +4,16 @@ public class Gegenstand {
 	private String beschreibung;
 	private double gewicht;
 	
+	/**
+	 * Der Konstruktor zum erstellen eines Gegenstand-Objektes
+	 * 
+	 * @param name
+	 *            des Gegenstandes (String)
+	 * @param beschreibung
+	 *            des Gegenstandes (String)
+	 * @param gewicht
+	 *            des Gegenstandes (Double)
+	 */
 	public Gegenstand(String name, String beschreibung, double gewicht)
 	{
 		this.name = name;
@@ -11,14 +21,29 @@ public class Gegenstand {
 		this.gewicht = gewicht;
 	}
 
+	/**
+	 * Gibt den Namen des Gegenstandes als String zurück
+	 * 
+	 * @return Name des Gegenstandes (String)
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Gibt die Beschreibung des Gegenstandes als String zurück
+	 * 
+	 * @return Beschreibung des Gegenstandes (String)
+	 */
 	public String getBeschreibung() {
 		return beschreibung;
 	}
 
+	/**
+	 * Gibt das Gewicht des Gegenstandes als Double zurück
+	 * 
+	 * @return Gewicht des Gegenstandes (Double)
+	 */
 	public double getGewicht() {
 		return gewicht;
 	}
@@ -31,9 +56,4 @@ public class Gegenstand {
 	public String toString() {
 		return beschreibung + ", "+ gewicht + "kg";
 	}
-	
-	
-	
-	
-
 }

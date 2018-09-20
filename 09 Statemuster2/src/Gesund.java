@@ -46,4 +46,10 @@ public class Gesund implements IZustand {
 		}
 	}
 
+	@Override
+	public IZustand toeten() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

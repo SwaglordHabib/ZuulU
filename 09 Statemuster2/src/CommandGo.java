@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class CommandGo implements ICommands {
@@ -11,6 +12,12 @@ public class CommandGo implements ICommands {
 	private Scanner scanner;
 	private static ICommands instance = new CommandGo();
 
+	/**
+	 * Prüfen ob eine Objekt der Klasse CommandGo bereits vorhanden ist. Ist dem
+	 * nicht so, wird ein neues Objekt erstellt.
+	 * 
+	 * @return die Instanz des Zustandes
+	 */
 	public static ICommands getInstance() {
 		if (instance == null) {
 			instance = new CommandGo();
@@ -18,10 +25,23 @@ public class CommandGo implements ICommands {
 		return instance;
 	}
 
+	/**
+	 * Konstruktor der Klasse CommandGo
+	 */
 	public CommandGo() {
 
 	}
 
+	/**
+	 * Initialisiert das erstellte Objekt der Klasse CommandDrop
+	 * 
+	 * @param e
+	 *            ist das Entity, welches den Raum wechselt
+	 * @param raum
+	 *            ist der Raum, in welchen das Entity wechselt
+	 * @param raumliste
+	 *            sind die Räume, die zur Verfügung stehen
+	 */
 	public void init(Entity e, Raum raum, ArrayList<Raum> raumliste) {
 		this.e = e;
 		this.raum = raum;
@@ -29,10 +49,16 @@ public class CommandGo implements ICommands {
 		this.raumliste = raumliste;
 	}
 
+	/**
+	 * Wird aufgerufen, sofern festgestellt wurde, dass der Befehl 'go'
+	 * ausgeführt wird.
+	 */
 	@Override
 	public void execute() {
 		if (raum.isTeleporter()) {
-			e.setAktuellerRaum(this.raumliste.get(Spiel.getRandom()));
+			Random rnd = new Random();
+			rnd.setSeed(System.nanoTime());
+			e.setAktuellerRaum(this.raumliste.get(rnd.nextInt(raumliste.size() - 1)));
 			execute();
 		}
 		if (raum.getMonsterliste().size() > 0) {
@@ -42,6 +68,9 @@ public class CommandGo implements ICommands {
 		raumInfoausgeben(raum);
 	}
 
+	/**
+	 * Zeigt den Kampf zwischen dem Spieler und ein oder mehrerer Enteties.
+	 */
 	private void fight() {
 		StringBuilder sb = new StringBuilder();
 		String eingabe;

@@ -48,10 +48,20 @@ public class Raum {
 		ausgaenge.put(richtung, nachbar);
 	}
 
+	/**
+	 * Prüfung ob der Raum ein Teleportraum ist
+	 * 
+	 * @return 'true', wenn Raum ein Teleporterraum ist
+	 */
 	public boolean isTeleporter() {
 		return teleporter;
 	}
 
+	/**
+	 * Gibt alle Monster des Raumes als Liste zurück
+	 * 
+	 * @return alle Monster (List<Monster>)
+	 */
 	public List<Monster> getMonsterliste() {
 		return monsterliste;
 	}
@@ -72,7 +82,6 @@ public class Raum {
 	 *            die Richtung, in die gegangen werden soll.
 	 * @return den Raum, der in der angegebenen Richtung liegt.
 	 */
-
 	public Raum getAusgang(String richtung) {
 		return ausgaenge.get(richtung);
 	}
@@ -82,7 +91,6 @@ public class Raum {
 	 * 
 	 * @return alle Ausgaenge des Raumes
 	 */
-
 	public String ausgaengeToString() {
 		StringBuilder ergebnis = new StringBuilder("Ausgänge: ");
 		for (String key : ausgaenge.keySet())
@@ -100,18 +108,42 @@ public class Raum {
 		return "Sie sind " + beschreibung + ".\n" + ausgaengeToString() + "\nGegenstände: " + gegenstaendeToString();
 	}
 
+	/**
+	 * Fügt dem Raum den angegebenen Gegenstand hinzu
+	 * 
+	 * @param g
+	 *            ist der Gegenstand, welcher hinzugefügt werden soll
+	 *            (Gegenstand)
+	 */
 	public void gegenstandAblegen(Gegenstand g) {
 		gegenstaende.add(g);
 	}
 
+	/**
+	 * Gibt eine Liste von allen Gegenständen zurück
+	 * 
+	 * @return alle Gegenstände (ArrayList<Gegenstand>)
+	 */
 	public ArrayList<Gegenstand> getAlleGegenstaende() {
 		return gegenstaende;
 	}
 
+	/**
+	 * Entfernt den angegebenen Gegenstand aus dem Raum
+	 * 
+	 * @param g
+	 *            ist der Gegenstand, welcher aus dem Raum entfernt werden soll
+	 *            (Gegenstand)
+	 */
 	public void entferneGegenstand(Gegenstand g) {
 		gegenstaende.remove(g);
 	}
 
+	/**
+	 * Gibt alle Gegenstände des Raumes als String zurück
+	 * 
+	 * @return alle Gegenstände (String)
+	 */
 	public String gegenstaendeToString() {
 		StringBuilder ergebnis = new StringBuilder();
 		if (gegenstaende.isEmpty()) {
@@ -123,6 +155,12 @@ public class Raum {
 		}
 	}
 
+	/**
+	 * Fügt ein Monster dem Raum hinzu
+	 * 
+	 * @param m
+	 *            ist das Monster, welches hinzugefügt werden soll (Monster)
+	 */
 	public void addMonster(Monster m) {
 		this.monsterliste.add(m);
 	}
