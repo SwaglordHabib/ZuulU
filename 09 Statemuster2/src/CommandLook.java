@@ -1,26 +1,13 @@
 public class CommandLook implements ICommands {
 
-	private Entity e;
+	private Spieler e;
 
-	private static ICommands instance = new CommandLook();
-
-	public static ICommands getInstance() {
-		if (instance == null) {
-			instance = new CommandLook();
-		}
-		return instance;
-	}
-
-	private CommandLook() {
-
-	}
-
-	public void init(Entity e) {
+	public CommandLook(Spieler e) {
 		this.e = e;
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Befehl befehl) {
 		System.out.println(this.e.getAktuellerRaum().getLangeBeschreibung());
 	}
 

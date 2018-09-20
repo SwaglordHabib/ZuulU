@@ -1,44 +1,35 @@
 
 public class CommandQuit implements ICommands {
 
-	private static ICommands instance = new CommandQuit();
+	private Spieler e;
 
-	public static ICommands getInstance() {
-		if (instance == null) {
-			instance = new CommandQuit();
-		}
-		return instance;
+	public CommandQuit(Spieler e) {
+		this.e = e;
 	}
 
-	private CommandQuit() {
-
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+	public void execute(Befehl befehl) {
+		if (befehl.hatZweitesWort()) {
+			System.out.println("Was soll beendet werden?");
+			Spiel.setBeendet(false);
+		} else {
+			Spiel.setBeendet(true); // Das Spiel soll beendet werden.
+		}
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Mit dem Befehl 'quit', wird das Spiel beendet.";
 	}
 
 	@Override
 	public String getCommand() {
-		// TODO Auto-generated method stub
-		return null;
+		return "quit";
 	}
 
 	@Override
 	public String getSyntax() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void init() {
-		// TODO Auto-generated method stub
-
+		return "Befehl 'quit': quit";
 	}
 
 }

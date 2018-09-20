@@ -1,7 +1,7 @@
 
 public interface ICommands {
 
-	void execute();
+	void execute(Befehl befehl);
 
 	String getDescription();
 

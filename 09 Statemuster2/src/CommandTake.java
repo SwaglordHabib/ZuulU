@@ -5,27 +5,21 @@ public class CommandTake implements ICommands {
 	private Spieler e;
 
 	private Scanner scanner;
-	private static ICommands instance = new CommandTake();
 
-	public static ICommands getInstance() {
-		if (instance == null) {
-			instance = new CommandTake();
-		}
-		return instance;
-	}
-
-	public void init(Spieler e) {
+	public CommandTake(Spieler e) {
 		this.e = e;
 	}
 
 	@Override
-	public void execute() {
-		String eingabe;
+	public void execute(Befehl befehl) {
+		String eingabe = befehl.gibZweitesWort();
 		System.out.println("Welchen Gegenstand möchten Sie aufnehmen?");
 		for (Gegenstand g : this.e.aktuellerRaum.getAlleGegenstaende()) {
 			System.out.println(g.getName() + "\n");
 		}
-		eingabe = scanner.nextLine();
+		if (eingabe == "") {
+			eingabe = scanner.nextLine();
+		}
 		try {
 			for (Gegenstand g : this.e.aktuellerRaum.getAlleGegenstaende()) {
 				if (g.getName().equals(eingabe)) {
