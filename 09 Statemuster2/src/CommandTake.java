@@ -43,6 +43,7 @@ public class CommandTake implements ICommands {
 		} catch (Exception e) {
 			System.out.println("Diesen Gegenstand gibt es nur in einer anderen Matrix. Boom!");
 		}
+		scanner.close();
 	}
 
 	@Override

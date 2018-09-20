@@ -1,10 +1,7 @@
-import java.util.Scanner;
-
 public class CommandLook implements ICommands {
 
 	private Entity e;
 
-	private Scanner scanner;
 	private static ICommands instance = new CommandLook();
 
 	public static ICommands getInstance() {

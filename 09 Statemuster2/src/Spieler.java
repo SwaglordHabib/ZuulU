@@ -4,14 +4,6 @@ public class Spieler extends Entity {
 	private double tragkraft;
 	private LinkedList<Gegenstand> gegenstaende;
 
-	/**
-	 * Erstllt ein Spieler-Objekt
-	 * 
-	 * @param hp
-	 *            gibt die HP-Anzahl an (int)
-	 * @param staerke
-	 *            gibt die Stärke an (int)
-	 */
 	public Spieler(int hp, int staerke) {
 		super(hp, staerke);
 

@@ -34,6 +34,11 @@ public class Gesund implements IZustand {
 	}
 
 	@Override
+	public IZustand toeten() {
+		return Tot.getInstance();
+	}
+
+	@Override
 	public void changeZustand(Entity e) {
 		if (e.hp >= e.maxHp * 0.7) {
 			e.aktuellerZustand = this.heilen();
@@ -44,12 +49,6 @@ public class Gesund implements IZustand {
 		} else {
 			e.aktuellerZustand = this.toeten();
 		}
-	}
-
-	@Override
-	public IZustand toeten() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

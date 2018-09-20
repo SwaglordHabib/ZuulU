@@ -22,8 +22,15 @@ import java.util.Random;
 public class Spiel {
 	private Spieler spieler;
 	private Parser parser;
-	private List<Raum> raumliste;
+	static private List<Raum> raumliste;
 	private List<Monster> monsterliste;
+	private CommandGo commandGo;
+	private CommandDrop commandDrop;
+	private CommandEat commandEat;
+	private CommandHelp commandHelp;
+	private CommandLook commandLook;
+	private CommandQuit commandQuit;
+	private CommandTake commandTake;
 
 	/**
 	 * Erzeuge ein Spiel und initialisiere die interne Raumkarte.
@@ -45,7 +52,7 @@ public class Spiel {
 	}
 
 	/**
-	 * Erzeuge alle R‰ume und verbindet ihre Ausg‰nge miteinander.
+	 * Erzeuge alle R‰ume und verbinde ihre Ausg‰nge miteinander.
 	 */
 	private void raeumeAnlegen() {
 		Raum draussen, hoersaal, cafeteria, labor, buero, teleporter;
@@ -127,6 +134,16 @@ public class Spiel {
 
 	}
 
+	private void initCommands() {
+		commandDrop = new CommandDrop(spieler);
+		commandEat = new CommandEat(spieler);
+		commandGo = new CommandGo();
+		commandHelp = new CommandHelp();
+		commandLook = new CommandLook();
+		commandQuit = new CommandQuit();
+		commandTake = new CommandTake();
+	}
+
 	/**
 	 * Verarbeite einen gegebenen Befehl (f¸hre ihn aus).
 	 * 
@@ -134,40 +151,57 @@ public class Spiel {
 	 *            Der zu verarbeitende Befehl.
 	 * @return 'true', wenn der Befehl das Spiel beendet, 'false' sonst.
 	 */
-	private boolean verarbeiteBefehl(Befehl befehl) {
+	private boolean verarbeiteBefehl(String befehl) {
 		// TODO: umbauen ohne if else -> Command-Pattern
 		// TODO: Java Documentation
-		boolean moechteBeenden = false;
 
-		if (befehl.istUnbekannt()) {
-			System.out.println("Ich weiﬂ nicht, was Sie meinen...");
-			return false;
+		CommandGo go = (CommandGo) CommandGo.getInstance();
+		CommandEat eat = (CommandEat) CommandEat.getInstance();
+		CommandDrop drop = (CommandDrop) CommandDrop.getInstance();
+		CommandLook look = (CommandLook) CommandLook.getInstance();
+		CommandTake take = (CommandTake) CommandTake.getInstance();
+		CommandHelp help = (CommandHelp) CommandHelp.getInstance();
+		CommandQuit quit = (CommandQuit) CommandQuit.getInstance();
+
+		ArrayList<ICommands> CommandList = new ArrayList<ICommands>();
+
+		for (ICommands c : CommandList) {
+			if (befehl.toLowerCase().trim() == c.getCommand()) {
+
+			}
 		}
 
-		String befehlswort = befehl.gibBefehlswort();
-		if (befehlswort.equals("help"))
-			hilfstextAusgeben();
-		else if (befehlswort.equals("go"))
-			goTo(befehl);
-		else if (befehlswort.equals("quit")) {
-			moechteBeenden = beenden(befehl);
-		} else if (befehlswort.equals("look")) {
-			rauminfoAusgeben();
-		} else if (befehlswort.equals("take")) {
-			nimmGegenstand(befehl);
-			System.out.println(spieler.zeigeStatus());
-			System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		} else if (befehlswort.equals("drop")) {
-			legeGegenstandAb(befehl);
-			System.out.println(spieler.zeigeStatus());
-			System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		} else if (befehlswort.equals("eat")) {
-			issMuffin(befehl);
-			System.out.println(spieler.zeigeStatus());
-			System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		}
-
-		return moechteBeenden;
+		// boolean moechteBeenden = false;
+		//
+		// if (befehl.istUnbekannt()) {
+		// System.out.println("Ich weiﬂ nicht, was Sie meinen...");
+		// return false;
+		// }
+		//
+		// String befehlswort = befehl.gibBefehlswort();
+		// if (befehlswort.equals("help"))
+		// hilfstextAusgeben();
+		// else if (befehlswort.equals("go"))
+		// goTo(befehl);
+		// else if (befehlswort.equals("quit")) {
+		// moechteBeenden = beenden(befehl);
+		// } else if (befehlswort.equals("look")) {
+		// umsehen();
+		// } else if (befehlswort.equals("take")) {
+		// nimmGegenstand(befehl);
+		// System.out.println(spieler.zeigeStatus());
+		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
+		// } else if (befehlswort.equals("drop")) {
+		// legeGegenstandAb(befehl);
+		// System.out.println(spieler.zeigeStatus());
+		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
+		// } else if (befehlswort.equals("eat")) {
+		// issMuffin(befehl);
+		// System.out.println(spieler.zeigeStatus());
+		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
+		// }
+		//
+		// return moechteBeenden;
 	}
 
 	// Implementierung der Benutzerbefehle:
@@ -222,18 +256,15 @@ public class Spiel {
 		}
 	}
 
-	/**
-	 * Gibt alle Informationen des Raumes in der Konsole aus
-	 */
 	private void rauminfoAusgeben() {
 		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
 		System.out.println();
 	}
 
-	/**
-	 * 
-	 * @param befehl
-	 */
+	private void umsehen() {
+		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
+	}
+
 	private void nimmGegenstand(Befehl befehl) {
 		if (!befehl.hatZweitesWort()) {
 			// Gibt es kein zweites Wort, wissen wir nicht, wohin...
@@ -293,15 +324,20 @@ public class Spiel {
 
 	}
 
-	/**
-	 * Erstellt Monster, welche einen zuf‰lligen Raum zugewiesen werden
-	 */
-	private void spawnMobs() {
+	public static int getRandom(int max) {
 		Random rnd = new Random();
+		return rnd.nextInt(max);
+	}
+
+	private void spawnMobs() {
 		for (int i = 0; i < raumliste.size() / 2; i++) {
-			rnd.setSeed(System.nanoTime());
+			rnd.setSeed(System.currentTimeMillis());
 			Monster m = new Monster(100, 5);
-			raumliste.get(rnd.nextInt(raumliste.size() - 1)).addMonster(m);
+			raumliste.get(getRandom()).addMonster(m);
 		}
+	}
+
+	static public List<Raum> getRaumliste() {
+		return raumliste;
 	}
 }

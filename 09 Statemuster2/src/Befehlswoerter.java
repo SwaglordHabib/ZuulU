@@ -39,12 +39,6 @@ public class Befehlswoerter
         return false;
     }
     
-	/**
-	 * Gibt einen String zurück, welcher alle Elemente des Command-Arrays
-	 * beinhaltet.
-	 * 
-	 * @return alle in dem Array sich befindenen Elemente.
-	 */
     public String getAlleGueltigenBefehle()
     {
     	StringBuffer befehle = new StringBuffer();
