@@ -11,13 +11,15 @@ public class CommandEat implements ICommands {
 	}
 
 	@Override
-	public void execute() {
-		String eingabe;
+	public void execute(Befehl befehl) {
+		String eingabe = befehl.gibZweitesWort();
 		System.out.println("Welchen Gegenstand möchten Sie essen?");
 		for (Gegenstand g : this.e.getGegenstaende()) {
 			System.out.println(g.getName() + "\n");
 		}
-		eingabe = scanner.nextLine();
+		if (!befehl.hatZweitesWort()) {
+			eingabe = scanner.nextLine();
+		}
 		for (Gegenstand g : this.e.getGegenstaende()) {
 			if (g.getName().equals(eingabe) && g.isEssbar()) {
 				Muffin m = (Muffin) g;

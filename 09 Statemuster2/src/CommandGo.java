@@ -7,27 +7,27 @@ public class CommandGo implements ICommands {
 	private Raum alterRaum;
 	private Scanner scanner;
 
-	public CommandGo(Spieler e, Raum raum) {
+	public CommandGo(Spieler e) {
 		this.e = e;
-		this.raum = raum;
 		this.alterRaum = e.aktuellerRaum;
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Befehl befehl) {
 		if (raum.isTeleporter()) {
 			e.setAktuellerRaum(Spiel.getRaumliste().get(Spiel.getRandom(Spiel.getRaumliste().size() - 1)));
-			execute();
+			execute(befehl);
 		}
 		if (raum.getMonsterliste().size() > 0) {
-			fight();
+			fight(befehl);
 		}
 		e.setAktuellerRaum(raum);
 		raumInfoausgeben(raum);
 	}
 
-	private void fight() {
+	private void fight(Befehl befehl) {
 		StringBuilder sb = new StringBuilder();
+		this.raum = e.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
 		String eingabe;
 		scanner = new Scanner(System.in);
 		boolean attacke = false;
@@ -74,7 +74,7 @@ public class CommandGo implements ICommands {
 				}
 			} else if (eingabe == "fluechten" || eingabe == "f") {
 				this.raum = this.alterRaum;
-				execute();
+				execute(befehl);
 				System.out.println("Du bist geflohen, skrr!");
 				break;
 			} else {

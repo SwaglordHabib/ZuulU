@@ -10,13 +10,15 @@ public class CommandDrop implements ICommands {
 	}
 
 	@Override
-	public void execute() {
-		String eingabe;
+	public void execute(Befehl befehl) {
+		String eingabe = befehl.gibZweitesWort();
 		System.out.println("Welchen Gegenstand möchten Sie abglegen?");
 		for (Gegenstand g : e.getGegenstaende()) {
 			System.out.println(g.getName() + "\n");
 		}
-		eingabe = scanner.nextLine();
+		if (eingabe == "") {
+			eingabe = scanner.nextLine();
+		}
 		try {
 
 			System.out.println("Das Item: " + this.e.legeGegenstandAb(eingabe).getName()

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -22,8 +23,13 @@ import java.util.Random;
 public class Spiel {
 	private Spieler spieler;
 	private Parser parser;
+
 	static private List<Raum> raumliste;
 	private List<Monster> monsterliste;
+	HashMap<String, ICommands> commandList = new HashMap<String, ICommands>();
+
+	private static boolean beendet = false;
+
 	private CommandGo commandGo;
 	private CommandDrop commandDrop;
 	private CommandEat commandEat;
@@ -76,13 +82,13 @@ public class Spiel {
 		buero.setAusgang("west", labor);
 
 		// Räume mit Gegenstände versehen
-		draussen.gegenstandAblegen(new Gegenstand("Lichtschwert", "ein Lichtschwert(Rot) (Taschenlampe)", 9.5));
-		draussen.gegenstandAblegen(new Gegenstand("Buch", "ein sehr altes Buch mit Ledereinband", 0.6));
+		draussen.gegenstandAblegen(new Gegenstand("Lichtschwert", "ein Lichtschwert(Rot) (Taschenlampe)", 9.5, false));
+		draussen.gegenstandAblegen(new Gegenstand("Buch", "ein sehr altes Buch mit Ledereinband", 0.6, false));
 		draussen.gegenstandAblegen(new Muffin("Muffin", "ein magischer Muffin", 0.1, 5.0));
-		hoersaal.gegenstandAblegen(new Gegenstand("Schatz", "eine kleine Schatztruhe mit Münzen", 2.5));
-		cafeteria.gegenstandAblegen(new Gegenstand("Pistole", "eine Pistole mit sechs Schuss", 0.5));
-		labor.gegenstandAblegen(new Gegenstand("Nahrung", "ein Korb mit mehreren Fruchtsorten", 1.0));
-		buero.gegenstandAblegen(new Gegenstand("Seil", "ein Seil der Länge 3m", 0.3));
+		hoersaal.gegenstandAblegen(new Gegenstand("Schatz", "eine kleine Schatztruhe mit Münzen", 2.5, false));
+		cafeteria.gegenstandAblegen(new Gegenstand("Pistole", "eine Pistole mit sechs Schuss", 0.5, false));
+		labor.gegenstandAblegen(new Gegenstand("Nahrung", "ein Korb mit mehreren Fruchtsorten", 1.0, false));
+		buero.gegenstandAblegen(new Gegenstand("Seil", "ein Seil der Länge 3m", 0.3, false));
 
 		// Räumen in Liste speichern
 		raumliste = new ArrayList<Raum>();
@@ -113,12 +119,15 @@ public class Spiel {
 		// Die Hauptschleife. Hier lesen wir wiederholt Befehle ein
 		// und führen sie aus, bis das Spiel beendet wird.
 
-		boolean beendet = false;
-		while (!beendet) {
+		while (!this.beendet) {
 			Befehl befehl = parser.liefereBefehl();
-			beendet = verarbeiteBefehl(befehl);
+			verarbeiteBefehl(befehl);
 		}
 		System.out.println("Danke für dieses Spiel. Auf Wiedersehen.");
+	}
+
+	public static void setBeendet(boolean beendet) {
+		Spiel.beendet = beendet;
 	}
 
 	/**
@@ -135,13 +144,13 @@ public class Spiel {
 	}
 
 	private void initCommands() {
-		commandDrop = new CommandDrop(spieler);
-		commandEat = new CommandEat(spieler);
-		commandGo = new CommandGo();
-		commandHelp = new CommandHelp();
-		commandLook = new CommandLook();
-		commandQuit = new CommandQuit();
-		commandTake = new CommandTake();
+		commandList.put("go", new CommandGo(spieler));
+		commandList.put("take", new CommandTake(spieler));
+		commandList.put("drop", new CommandDrop(spieler));
+		commandList.put("help", new CommandHelp(spieler));
+		commandList.put("look", new CommandLook(spieler));
+		commandList.put("quit", new CommandQuit(spieler));
+		commandList.put("eat", new CommandEat(spieler));
 	}
 
 	/**
@@ -151,24 +160,12 @@ public class Spiel {
 	 *            Der zu verarbeitende Befehl.
 	 * @return 'true', wenn der Befehl das Spiel beendet, 'false' sonst.
 	 */
-	private boolean verarbeiteBefehl(String befehl) {
-		// TODO: umbauen ohne if else -> Command-Pattern
-		// TODO: Java Documentation
+	// TODO: umbauen ohne if else -> Command-Pattern
+	// TODO: Java Documentation
+	private void verarbeiteBefehl(Befehl befehl) {
 
-		CommandGo go = (CommandGo) CommandGo.getInstance();
-		CommandEat eat = (CommandEat) CommandEat.getInstance();
-		CommandDrop drop = (CommandDrop) CommandDrop.getInstance();
-		CommandLook look = (CommandLook) CommandLook.getInstance();
-		CommandTake take = (CommandTake) CommandTake.getInstance();
-		CommandHelp help = (CommandHelp) CommandHelp.getInstance();
-		CommandQuit quit = (CommandQuit) CommandQuit.getInstance();
-
-		ArrayList<ICommands> CommandList = new ArrayList<ICommands>();
-
-		for (ICommands c : CommandList) {
-			if (befehl.toLowerCase().trim() == c.getCommand()) {
-
-			}
+		if (commandList.containsKey(befehl.gibBefehlswort())) {
+			commandList.get(befehl).execute(befehl);
 		}
 
 		// boolean moechteBeenden = false;
@@ -237,7 +234,7 @@ public class Spiel {
 		if (naechsterRaum == null) {
 			System.out.println("Dort ist keine Tür!");
 		} else {
-			wechsleRaum(naechsterRaum);
+			// wechsleRaum(naechsterRaum);
 		}
 	}
 
@@ -330,10 +327,11 @@ public class Spiel {
 	}
 
 	private void spawnMobs() {
+		Random rnd = new Random();
 		for (int i = 0; i < raumliste.size() / 2; i++) {
 			rnd.setSeed(System.currentTimeMillis());
 			Monster m = new Monster(100, 5);
-			raumliste.get(getRandom()).addMonster(m);
+			raumliste.get(Spiel.getRandom(2)).addMonster(m);
 		}
 	}
 

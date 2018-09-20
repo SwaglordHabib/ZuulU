@@ -1,22 +1,20 @@
 
 public class Muffin extends Gegenstand {
-	
+
 	private double erhoehungTragkraft;
-	
-	public Muffin(String name, String beschreibung, double gewicht, double et)
-	{
-		super(name, beschreibung, gewicht);
+
+	public Muffin(String name, String beschreibung, double gewicht, double et) {
+		super(name, beschreibung, gewicht, true);
 		this.erhoehungTragkraft = et;
 	}
 
 	public double getErhoehungTragkraft() {
 		return erhoehungTragkraft;
 	}
-	
-	public String toString()
-	{
-		return (super.toString()+ ", Erhöhung der Tragkraft um "+ erhoehungTragkraft);
-		
+
+	public String toString() {
+		return (super.toString() + ", Erhöhung der Tragkraft um " + erhoehungTragkraft);
+
 	}
 
 }

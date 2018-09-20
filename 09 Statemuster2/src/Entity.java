@@ -5,21 +5,11 @@ public class Entity {
 	protected int staerke;
 	protected Raum aktuellerRaum;
 
-	private ICommands command;
-
 	public Entity(int hp, int staerke) {
 		this.hp = hp;
 		this.maxHp = hp;
 		this.staerke = staerke;
 		this.aktuellerZustand = Gesund.getInstance();
-	}
-
-	public void setCommand(ICommands command) {
-		this.command = command;
-	}
-
-	public void executeCommand(String eingabe) {
-		this.command.execute();
 	}
 
 	public int getHp() {
