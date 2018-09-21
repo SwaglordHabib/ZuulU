@@ -25,7 +25,6 @@ public class Parser {
 	 */
 	public Parser() {
 		befehle = new Befehlswoerter();
-		invoker = new Invoker();
 		leser = new Scanner(System.in);
 	}
 
@@ -50,11 +49,12 @@ public class Parser {
 				// Hinweis: Wir ignorieren den Rest der Eingabezeile.
 			}
 		}
+		zerleger.close();
 
 		// Jetzt prüfen, ob der Befehl bekannt ist. Wenn ja, erzeugen
 		// wir das passende Befehl-Objekt. Wenn nicht, erzeugen wir
 		// einen unbekannten Befehl mit 'null'.
-		if (invoker.isCommand(wort1)) {
+		if (befehle.istBefehl(wort1)) {
 			return new Befehl(wort1, wort2);
 		} else {
 			return new Befehl(null, wort2);
