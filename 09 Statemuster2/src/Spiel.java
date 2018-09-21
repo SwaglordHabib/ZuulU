@@ -24,7 +24,7 @@ public class Spiel {
 	private Spieler spieler;
 	private Parser parser;
 
-	static private List<Raum> raumliste;
+	private static List<Raum> raumliste;
 	private List<Monster> monsterliste;
 	HashMap<String, ICommands> commandList = new HashMap<String, ICommands>();
 
@@ -118,9 +118,7 @@ public class Spiel {
 		System.out.println("Danke für dieses Spiel. Auf Wiedersehen.");
 	}
 
-	public static void setBeendet(boolean beendet) {
-		Spiel.beendet = beendet;
-	}
+
 
 	/**
 	 * Einen Begrüßungstext für den Spieler ausgeben.
@@ -135,6 +133,9 @@ public class Spiel {
 
 	}
 
+    /**
+     * Initialiesiert alle Befehle     *
+     */
 	private void initCommands() {
 		commandList.put("go", new CommandGo(spieler));
 		commandList.put("take", new CommandTake(spieler));
@@ -143,6 +144,7 @@ public class Spiel {
 		commandList.put("look", new CommandLook(spieler));
 		commandList.put("quit", new CommandQuit(spieler));
 		commandList.put("eat", new CommandEat(spieler));
+		commandList.put("inventar", new CommandSearchInventar(spieler));
 	}
 
 	/**
@@ -150,9 +152,7 @@ public class Spiel {
 	 * 
 	 * @param befehl
 	 *            Der zu verarbeitende Befehl.
-	 * @return 'true', wenn der Befehl das Spiel beendet, 'false' sonst.
 	 */
-	// TODO: umbauen ohne if else -> Command-Pattern
 	// TODO: Java Documentation
 	private void verarbeiteBefehl(Befehl befehl) {
 
@@ -163,129 +163,25 @@ public class Spiel {
 
 	// Implementierung der Benutzerbefehle:
 
-	/**
-	 * Gib Hilfsinformationen aus. Hier geben wir eine etwas alberne und unklare
-	 * Beschreibung aus, sowie eine Liste der Befehlswörter.
-	 */
-	private void hilfstextAusgeben() {
-		System.out.println("Sie haben sich verlaufen. Sie sind allein.");
-		System.out.println("Sie irren auf dem Unigelände herum.");
-		System.out.println();
-		System.out.println("Ihnen stehen folgende Befehle zur Verfügung:");
-		System.out.println(parser.getAlleBefehle());
-	}
-
-	/**
-	 * Versuche, den Raum zu wechseln. Wenn es einen Ausgang gibt, wechsele in den
-	 * neuen Raum, ansonsten gib eine Fehlermeldung aus.
-	 */
-	private void goTo(Befehl befehl) {
-		if (!befehl.hatZweitesWort()) {
-			// Gibt es kein zweites Wort, wissen wir nicht, wohin...
-			System.out.println("Wohin möchten Sie gehen?");
-			return;
-		}
-
-		String richtung = befehl.gibZweitesWort();
-
-		// Wir versuchen den Raum zu verlassen.
-		Raum naechsterRaum = spieler.getAktuellerRaum().getAusgang(richtung);
-
-		if (naechsterRaum == null) {
-			System.out.println("Dort ist keine Tür!");
-		} else {
-			// wechsleRaum(naechsterRaum);
-		}
-	}
-
-	/**
-	 * "quit" wurde eingegeben. Überprüfe den Rest des Befehls, ob das Spiel
-	 * wirklich beendet werden soll.
-	 * 
-	 * @return 'true', wenn der Befehl das Spiel beendet, 'false' sonst.
-	 */
-	private boolean beenden(Befehl befehl) {
-		if (befehl.hatZweitesWort()) {
-			System.out.println("Was soll beendet werden?");
-			return false;
-		} else {
-			return true; // Das Spiel soll beendet werden.
-		}
-	}
-
 	private void rauminfoAusgeben() {
 		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
 		System.out.println();
 	}
 
-	private void umsehen() {
-		System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-	}
 
-	private void nimmGegenstand(Befehl befehl) {
-		if (!befehl.hatZweitesWort()) {
-			// Gibt es kein zweites Wort, wissen wir nicht, wohin...
-			System.out.println("Welchen Gegenstand möchten Sie aufnehmen?");
-			return;
-		}
-
-		String name = befehl.gibZweitesWort();
-		// Wir versuchen den Gegenstand aufzunehmen.
-		ArrayList<Gegenstand> gegenstaende = spieler.getAktuellerRaum().getAlleGegenstaende();
-		for (Gegenstand g : gegenstaende) {
-			if (g.getName().equals(name)) {
-				if (spieler.gegenstandAufnehmen(g)) {
-					spieler.getAktuellerRaum().entferneGegenstand(g);
-					return;
-				} else {
-					System.out.println("Der Gegenstand ist zu schwer!");
-					return;
-				}
-			}
-		}
-		System.out.println("Den Gegenstand gibt es hier nicht");
-	}
-
-	private void legeGegenstandAb(Befehl befehl) {
-		if (!befehl.hatZweitesWort()) {
-			// Gibt es kein zweites Wort, wissen wir nicht, wohin...
-			System.out.println("Welchen Gegenstand möchten Sie ablegen?");
-			return;
-		}
-
-		String name = befehl.gibZweitesWort();
-		spieler.getAktuellerRaum().gegenstandAblegen(spieler.legeGegenstandAb(name));
-	}
-
-	private void issMuffin(Befehl befehl) {
-		if (!befehl.hatZweitesWort()) {
-			// Gibt es kein zweites Wort, wissen wir nicht, welcher Gegenstand gegessen
-			// werden soll..
-			System.out.println("Welchen Gegenstand möchten Sie essen?");
-			return;
-		}
-
-		if (befehl.gibZweitesWort().equals("Muffin")) {
-			// Wir versuchen den Muffin zu essen.
-			ArrayList<Gegenstand> gegenstaende = spieler.getAktuellerRaum().getAlleGegenstaende();
-			for (Gegenstand g : gegenstaende) {
-				if (g.getName().equals("Muffin")) {
-					Muffin m = (Muffin) g;
-					spieler.setTragkraft(spieler.getTragkraft() + m.getErhoehungTragkraft());
-					gegenstaende.remove(g);
-					return;
-				}
-			}
-		}
-		System.out.println("Dieser Raum hat keinen Muffin");
-
-	}
-
+    /**
+     * Erstellt eine "zufällige" Zahl, bis zu der Zahl die im Parameter übergeben wurde
+     * @param max
+     * @return
+     */
 	public static int getRandom(int max) {
 		Random rnd = new Random();
 		return rnd.nextInt(max);
 	}
 
+    /**
+     * Erstellt die Monster und und speichert diese zufällig in einem Raum
+     */
 	private void spawnMobs() {
 		Random rnd = new Random();
 		for (int i = 0; i < raumliste.size() / 2; i++) {
@@ -295,7 +191,12 @@ public class Spiel {
 		}
 	}
 
-	static public List<Raum> getRaumliste() {
+
+	public static void setBeendet(boolean beendet) {
+		Spiel.beendet = beendet;
+	}
+
+    public static List<Raum> getRaumliste() {
 		return raumliste;
 	}
 }

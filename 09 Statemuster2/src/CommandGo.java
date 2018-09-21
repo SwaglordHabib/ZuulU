@@ -2,28 +2,41 @@ import java.util.Scanner;
 
 public class CommandGo implements ICommands {
 
-	private Spieler e;
+	private Spieler spieler;
 	private Raum raum;
 	private Raum alterRaum;
 	private Scanner scanner;
 
-	public CommandGo(Spieler e) {
-		this.e = e;
-		this.alterRaum = e.aktuellerRaum;
+    /**
+     * Erzeugt CommandGo und initialisiert den Spieler und den Raum aus dem der Spieler kam
+     *
+     * @param spieler
+     */
+	public CommandGo(Spieler spieler) {
+		this.spieler = spieler;
+		this.alterRaum = spieler.aktuellerRaum;
 	}
 
+    /**
+     *
+     * @param befehl
+     */
 	@Override
 	public void execute(Befehl befehl) {
-		this.raum = e.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
-		if (raum.isTeleporter()) {
-			e.setAktuellerRaum(Spiel.getRaumliste().get(Spiel.getRandom(Spiel.getRaumliste().size() - 1)));
-			execute(befehl);
-		}
+		this.raum = spieler.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
+		teleporter(befehl);
 		if (raum.getMonsterliste().size() > 0) {
 			fight(befehl);
 		}
-		e.setAktuellerRaum(raum);
+		spieler.setAktuellerRaum(raum);
 		System.out.println(raumInfoausgeben(raum));
+	}
+
+	private void teleporter(Befehl befehl) {
+		if (raum.isTeleporter()) {
+			spieler.setAktuellerRaum(Spiel.getRaumliste().get(Spiel.getRandom(Spiel.getRaumliste().size() - 1)));
+			execute(befehl);
+		}
 	}
 
 	private void fight(Befehl befehl) {
@@ -49,10 +62,10 @@ public class CommandGo implements ICommands {
 				attacke = true;
 
 				while (attacke) {
-					System.out.println("Welches Monster möchtest du angreifen: ");
+					System.out.println("Welches Monster mï¿½chtest du angreifen: ");
 					eingabe = scanner.nextLine();
 					try {
-						e.doDamage(raum.getMonsterliste().get(Integer.parseInt(eingabe)));
+						spieler.doDamage(raum.getMonsterliste().get(Integer.parseInt(eingabe)));
 						if (raum.getMonsterliste().get(Integer.parseInt(eingabe)).aktuellerZustand == Tot
 								.getInstance()) {
 							raum.getMonsterliste().remove(Integer.parseInt(eingabe));
@@ -60,9 +73,9 @@ public class CommandGo implements ICommands {
 						}
 
 						for (Monster m : raum.getMonsterliste()) {
-							m.doDamage(e);
+							m.doDamage(spieler);
 
-							if (e.aktuellerZustand == Tot.getInstance()) {
+							if (spieler.aktuellerZustand == Tot.getInstance()) {
 								System.out.println("Du wurdest besiegt!");
 								System.exit(0);
 							}

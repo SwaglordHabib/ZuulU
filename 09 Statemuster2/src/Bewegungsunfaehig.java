@@ -18,36 +18,61 @@ public class Bewegungsunfaehig implements IZustand {
 		return Verwundet.getInstance();
 	}
 
+	/**
+	 * Gibt die Instanz von sich selbst zurück, da man sich nach
+	 *
+	 * @return 'instance', gibt die Instanze von sich selber zurück
+	 */
 	@Override
 	public IZustand leichtVerletzen() {
 		return instance;
 
 	}
 
+	/**
+	 *
+	 *
+	 * @return 'Tot.instance', gibt die Instanze von Tot zurück
+	 */
 	@Override
 	public IZustand starkVerletzen() {
 		return Tot.getInstance();
 	}
 
+	/**
+	 * Name des Statuses
+	 *
+	 * @return
+	 */
+	@Override
 	public String toString() {
 		return "Bewegungsunfähig";
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	@Override
 	public IZustand toeten() {
 		return Tot.getInstance();
 	}
 
+	/**
+	 * Ermittelt den Zustand für eine Entity, das kann sowohl ein Spieler als auch ein Monster sein.
+	 *
+	 * @param entity
+	 */
 	@Override
-	public void changeZustand(Entity e) {
-		if (e.hp >= e.maxHp * 0.7) {
-			e.aktuellerZustand = this.heilen();
-		} else if (e.hp >= e.maxHp * 0.3 && e.hp < e.maxHp * 0.7) {
-			e.aktuellerZustand = this.leichtVerletzen();
-		} else if (e.hp >= 1 && e.hp < e.maxHp + 0.3) {
-			e.aktuellerZustand = this.starkVerletzen();
+	public void changeZustand(Entity entity) {
+		if (entity.hp >= entity.maxHp * 0.7) {
+			entity.aktuellerZustand = this.heilen();
+		} else if (entity.hp >= entity.maxHp * 0.3 && entity.hp < entity.maxHp * 0.7) {
+			entity.aktuellerZustand = this.leichtVerletzen();
+		} else if (entity.hp >= 1 && entity.hp < entity.maxHp + 0.3) {
+			entity.aktuellerZustand = this.starkVerletzen();
 		} else {
-			e.aktuellerZustand = this.toeten();
+			entity.aktuellerZustand = this.toeten();
 		}
 
 	}

@@ -1,12 +1,21 @@
 
 public class CommandHelp implements ICommands {
 
-	private Spieler e;
+	private Spieler spieler;
 
-	public CommandHelp(Spieler e) {
-		this.e = e;
+	/**
+	 * Erzeugt CommandHelp und initliaisiert den Spieler
+	 *
+	 * @param spieler
+	 */
+	public CommandHelp(Spieler spieler) {
+		this.spieler = spieler;
 	}
 
+    /**
+     *
+     * @param befehl
+     */
 	@Override
 	public void execute(Befehl befehl) {
 		System.out.println("Sie haben sich verlaufen. Sie sind allein.");

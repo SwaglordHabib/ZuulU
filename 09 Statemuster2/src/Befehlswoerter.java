@@ -1,27 +1,27 @@
 /*
- * Diese Klasse hält eine Aufzählung aller Befehlswörter, die dem
+ * Diese Klasse hï¿½lt eine Aufzï¿½hlung aller Befehlswï¿½rter, die dem
  * Spiel bekannt sind. Mit ihrer Hilfe werden eingetippte Befehle
  * erkannt.
  *
- * @author  Michael Kölling und David J. Barnes
+ * @author  Michael Kï¿½lling und David J. Barnes
  * @version 2008.03.30
  */
 
 public class Befehlswoerter {
-	// ein konstantes Array mit den gültigen Befehlswörtern
+	// ein konstantes Array mit den gï¿½ltigen Befehlswï¿½rtern
 	private static final String gueltigeBefehle[] = { "go", "quit", "help", "look", "take", "drop", "eat" };
 
 	/**
-	 * Konstruktor - initialisiere die Befehlswörter.
+	 * Konstruktor - initialisiere die Befehlswï¿½rter.
 	 */
 	public Befehlswoerter() {
 		// nichts zu tun momentan...
 	}
 
 	/**
-	 * Prüfe, ob eine gegebene Zeichenkette ein gültiger Befehl ist.
+	 * Prï¿½fe, ob eine gegebene Zeichenkette ein gï¿½ltiger Befehl ist.
 	 * 
-	 * @return 'true', wenn die gegebene Zeichenkette ein gültiger Befehl ist,
+	 * @return 'true', wenn die gegebene Zeichenkette ein gï¿½ltiger Befehl ist,
 	 *         'false' sonst.
 	 */
 	public boolean istBefehl(String eingabe) {
@@ -30,10 +30,15 @@ public class Befehlswoerter {
 				return true;
 		}
 		// Wenn wir hierher gelangen, wurde die Eingabe nicht
-		// in den Befehlswörtern gefunden.
+		// in den Befehlswï¿½rtern gefunden.
 		return false;
 	}
 
+	/**
+	 * Gibt alle gÃ¼ltigen Befehle zurÃ¼ck
+	 *
+	 * @return 'string mit allen gÃ¼ltigen Befehlen'
+	 */
 	public String getAlleGueltigenBefehle() {
 		StringBuffer befehle = new StringBuffer();
 		for (String befehl : gueltigeBefehle)
