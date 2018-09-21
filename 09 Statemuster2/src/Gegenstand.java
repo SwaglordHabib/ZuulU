@@ -5,6 +5,14 @@ public class Gegenstand {
 	private double gewicht;
 	private boolean essbar;
 
+	/**
+	 * Erzeugt einen Gegenstand und initialisiert den Name, Beschreibung, das Gewicht und ob man es essen kann mit übergebenen werten.
+	 *
+	 * @param name
+	 * @param beschreibung
+	 * @param gewicht
+	 * @param essbar
+	 */
 	public Gegenstand(String name, String beschreibung, double gewicht, boolean essbar) {
 		this.name = name;
 		this.beschreibung = beschreibung;
@@ -18,10 +26,6 @@ public class Gegenstand {
 
 	public boolean isEssbar() {
 		return essbar;
-	}
-
-	public String getBeschreibung() {
-		return beschreibung;
 	}
 
 	public double getGewicht() {

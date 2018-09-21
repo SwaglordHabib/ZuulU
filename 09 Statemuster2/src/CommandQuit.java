@@ -3,10 +3,20 @@ public class CommandQuit implements ICommands {
 
 	private Spieler e;
 
+	/**
+	 * Erzeugt CommandQuit und inistialisiert den Spieler
+	 *
+	 * @param e
+	 */
 	public CommandQuit(Spieler e) {
 		this.e = e;
 	}
 
+	/**
+	 * Beendet das Spiel, wenn nur 'quit' eingegeben wird, sonst wird nochmal nachgefragt was beendet werden soll.
+	 *
+	 * @param befehl
+	 */
 	@Override
 	public void execute(Befehl befehl) {
 		if (befehl.hatZweitesWort()) {

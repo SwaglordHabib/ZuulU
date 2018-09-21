@@ -18,8 +18,6 @@ public class Parser {
 	private Befehlswoerter befehle; // hält die gültigen Befehlswörter
 	private Scanner leser; // Lieferant für eingegebene Befehle
 
-	private Invoker invoker;
-
 	/**
 	 * Erzeuge einen Parser, der Befehle von der Konsole einliest.
 	 */

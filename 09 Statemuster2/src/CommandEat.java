@@ -2,33 +2,49 @@ import java.util.Scanner;
 
 public class CommandEat implements ICommands {
 
-	private Spieler e;
+	private Spieler spieler;
 
 	private Scanner scanner;
 
+	/**
+	 * Erzeugt ein CommandEat und initialisiert den Spieler
+	 *
+	 * @param e
+	 */
 	public CommandEat(Spieler e) {
-		this.e = e;
+		this.spieler = e;
 	}
 
+	/**
+	 *
+	 *
+	 * @param befehl
+	 */
 	@Override
 	public void execute(Befehl befehl) {
 		String eingabe = befehl.gibZweitesWort();
-		System.out.println("Welchen Gegenstand möchten Sie essen?");
-		for (Gegenstand g : this.e.getGegenstaende()) {
-			System.out.println(g.getName() + "\n");
-		}
-		if (!befehl.hatZweitesWort()) {
-			eingabe = scanner.nextLine();
-		}
-		for (Gegenstand g : this.e.getGegenstaende()) {
+		noItemSelected(eingabe);
+		eatMuffin(eingabe);
+	}
+
+	private void eatMuffin(String eingabe) {
+		for (Gegenstand g : this.spieler.getGegenstaende()) {
 			if (g.getName().equals(eingabe) && g.isEssbar()) {
 				Muffin m = (Muffin) g;
-				this.e.setTragkraft(this.e.getTragkraft() + m.getErhoehungTragkraft());
-			} else {
-				System.out.println("Kaaaaaaarl.");
+				this.spieler.setTragkraft(this.spieler.getTragkraft() + m.getErhoehungTragkraft());
+				return;
 			}
 		}
-		scanner.close();
+		System.out.println("Kaaaaaaarl.");
+	}
+
+	private void noItemSelected(String eingabe) {
+		if (eingabe == ""){
+			System.out.println("Welchen Gegenstand möchten Sie essen?");
+			for (Gegenstand g : this.spieler.getGegenstaende()) {
+				System.out.println(g.getName() + "\n");
+			}
+		}
 	}
 
 	@Override
