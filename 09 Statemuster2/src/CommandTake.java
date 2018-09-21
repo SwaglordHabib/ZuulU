@@ -13,21 +13,21 @@ public class CommandTake implements ICommands {
 	@Override
 	public void execute(Befehl befehl) {
 		String eingabe = befehl.gibZweitesWort();
-		System.out.println("Welchen Gegenstand möchten Sie aufnehmen?");
-		for (Gegenstand g : this.e.aktuellerRaum.getAlleGegenstaende()) {
-			System.out.println(g.getName() + "\n");
-		}
 		if (eingabe == "") {
-			eingabe = scanner.nextLine();
+			System.out.println("Welchen Gegenstand möchten Sie aufnehmen?");
+			for (Gegenstand g : this.e.aktuellerRaum.getAlleGegenstaende()) {
+				System.out.println(g.getName() + "\n");
+			}
 		}
 		try {
 			for (Gegenstand g : this.e.aktuellerRaum.getAlleGegenstaende()) {
 				if (g.getName().equals(eingabe)) {
-					if (this.e.getTragkraft() + g.getGewicht() <= this.e.getTragkraft()) {
+					if (this.e.getTragkraft() + g.getGewicht() >= this.e.getTragkraft()) {
 						this.e.getGegenstaende().add(g);
 						this.e.getAktuellerRaum().getAlleGegenstaende().remove(g);
-						System.out.println("Das Item:" + g.getName()
+						System.out.println("Das Item: " + g.getName()
 								+ " hast du vom Boden aufgenommen und in dein Inventar gelegt.");
+						return;
 					} else {
 						System.out.println(
 								"Du kannst dieses Item nicht aufnehmen, da deine Tragkraft nicht ausreicht. \n Lege ein Item ab oder lass es liegen.");
@@ -37,7 +37,7 @@ public class CommandTake implements ICommands {
 		} catch (Exception e) {
 			System.out.println("Diesen Gegenstand gibt es nur in einer anderen Matrix. Boom!");
 		}
-		scanner.close();
+
 	}
 
 	@Override

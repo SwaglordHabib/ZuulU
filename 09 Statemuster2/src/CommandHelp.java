@@ -13,7 +13,9 @@ public class CommandHelp implements ICommands {
 		System.out.println("Sie irren auf dem Unigelände herum.");
 		System.out.println();
 		System.out.println("Ihnen stehen folgende Befehle zur Verfügung:");
-		System.out.println(Befehlswoerter.getAlleBefehle());
+		for (String b : Befehlswoerter.getAlleBefehle()) {
+			System.out.println(b);
+		}
 	}
 
 	@Override

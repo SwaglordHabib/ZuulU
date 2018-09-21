@@ -12,12 +12,11 @@ public class CommandDrop implements ICommands {
 	@Override
 	public void execute(Befehl befehl) {
 		String eingabe = befehl.gibZweitesWort();
-		System.out.println("Welchen Gegenstand möchten Sie abglegen?");
-		for (Gegenstand g : e.getGegenstaende()) {
-			System.out.println(g.getName() + "\n");
-		}
 		if (eingabe == "") {
-			eingabe = scanner.nextLine();
+			System.out.println("Welchen Gegenstand möchten Sie abglegen?");
+			for (Gegenstand g : e.getGegenstaende()) {
+				System.out.println(g.getName() + "\n");
+			}
 		}
 		try {
 
@@ -26,7 +25,6 @@ public class CommandDrop implements ICommands {
 		} catch (Exception e) {
 			System.out.println("Diesen Gegenstand gibt es nur in einer anderen Matrix. Boom!");
 		}
-		scanner.close();
 	}
 
 	@Override

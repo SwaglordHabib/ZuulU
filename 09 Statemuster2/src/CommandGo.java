@@ -14,6 +14,7 @@ public class CommandGo implements ICommands {
 
 	@Override
 	public void execute(Befehl befehl) {
+		this.raum = e.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
 		if (raum.isTeleporter()) {
 			e.setAktuellerRaum(Spiel.getRaumliste().get(Spiel.getRandom(Spiel.getRaumliste().size() - 1)));
 			execute(befehl);
@@ -22,12 +23,11 @@ public class CommandGo implements ICommands {
 			fight(befehl);
 		}
 		e.setAktuellerRaum(raum);
-		raumInfoausgeben(raum);
+		System.out.println(raumInfoausgeben(raum));
 	}
 
 	private void fight(Befehl befehl) {
 		StringBuilder sb = new StringBuilder();
-		this.raum = e.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
 		String eingabe;
 		scanner = new Scanner(System.in);
 		boolean attacke = false;
@@ -81,7 +81,7 @@ public class CommandGo implements ICommands {
 				System.out.println("Die Eingabe war falsch!");
 			}
 		} while (raum.getMonsterliste().size() > 0);
-
+		scanner.close();
 	}
 
 	@Override

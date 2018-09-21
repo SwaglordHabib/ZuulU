@@ -30,14 +30,6 @@ public class Spiel {
 
 	private static boolean beendet = false;
 
-	private CommandGo commandGo;
-	private CommandDrop commandDrop;
-	private CommandEat commandEat;
-	private CommandHelp commandHelp;
-	private CommandLook commandLook;
-	private CommandQuit commandQuit;
-	private CommandTake commandTake;
-
 	/**
 	 * Erzeuge ein Spiel und initialisiere die interne Raumkarte.
 	 */
@@ -115,7 +107,7 @@ public class Spiel {
 	 */
 	public void spielen() {
 		willkommenstextAusgeben();
-
+		initCommands();
 		// Die Hauptschleife. Hier lesen wir wiederholt Befehle ein
 		// und führen sie aus, bis das Spiel beendet wird.
 
@@ -165,40 +157,8 @@ public class Spiel {
 	private void verarbeiteBefehl(Befehl befehl) {
 
 		if (commandList.containsKey(befehl.gibBefehlswort())) {
-			commandList.get(befehl).execute(befehl);
+			commandList.get(befehl.gibBefehlswort()).execute(befehl);
 		}
-
-		// boolean moechteBeenden = false;
-		//
-		// if (befehl.istUnbekannt()) {
-		// System.out.println("Ich weiß nicht, was Sie meinen...");
-		// return false;
-		// }
-		//
-		// String befehlswort = befehl.gibBefehlswort();
-		// if (befehlswort.equals("help"))
-		// hilfstextAusgeben();
-		// else if (befehlswort.equals("go"))
-		// goTo(befehl);
-		// else if (befehlswort.equals("quit")) {
-		// moechteBeenden = beenden(befehl);
-		// } else if (befehlswort.equals("look")) {
-		// umsehen();
-		// } else if (befehlswort.equals("take")) {
-		// nimmGegenstand(befehl);
-		// System.out.println(spieler.zeigeStatus());
-		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		// } else if (befehlswort.equals("drop")) {
-		// legeGegenstandAb(befehl);
-		// System.out.println(spieler.zeigeStatus());
-		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		// } else if (befehlswort.equals("eat")) {
-		// issMuffin(befehl);
-		// System.out.println(spieler.zeigeStatus());
-		// System.out.println(spieler.getAktuellerRaum().getLangeBeschreibung());
-		// }
-		//
-		// return moechteBeenden;
 	}
 
 	// Implementierung der Benutzerbefehle:
