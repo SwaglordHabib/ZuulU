@@ -13,7 +13,7 @@ public class CommandDrop implements ICommands {
 	}
 
 	/**
-	 *
+	 * Führt den mitgelieferten Befehl aus
 	 *
 	 * @param befehl
 	 */
@@ -30,6 +30,10 @@ public class CommandDrop implements ICommands {
 		}
 	}
 
+	/**
+	 * Prüft ob ein Item ausgewählt wurde
+	 * @param eingabe, ist der Itemname
+	 */
     private void noItemSelected(String eingabe) {
         if (eingabe == "") {
             System.out.println("Welchen Gegenstand mï¿½chten Sie abglegen?");
@@ -39,16 +43,25 @@ public class CommandDrop implements ICommands {
         }
     }
 
+    /**
+     * Gibt die vollständige Beschreibung als String zurück
+     */
     @Override
 	public String getDescription() {
 		return "Mit dem Befehl 'drop' und der Angabe eines Items, wird das bestimmte Item auf den Boden des Raumes gelegt.";
 	}
 
+    /**
+     * Gibt den Namen des Befehles als String zurück
+     */
 	@Override
 	public String getCommand() {
 		return "drop";
 	}
 
+	/**
+	 * Gibt die korrekte Syntax als String zurück
+	 */
 	@Override
 	public String getSyntax() {
 		return "Befehl 'drop': drop <Itemname>";

@@ -16,14 +16,16 @@ public class Muffin extends Gegenstand {
 		this.erhoehungTragkraft = et;
 	}
 
+	/**
+	 * Gibt die zu erhöhende Tragkraft zurück
+	 * @return
+	 */
 	public double getErhoehungTragkraft() {
 		return erhoehungTragkraft;
 	}
 
     /**
      * Gibt eine Beschreibung des Muffins zurück
-     *
-     * @return
      */
 	@Override
 	public String toString() {

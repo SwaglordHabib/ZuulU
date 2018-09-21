@@ -27,6 +27,10 @@ public class CommandTake implements ICommands {
         findItemAndAddToInventory(eingabe);
     }
 
+    /**
+     * Nimmt den angegebenen Gegenstand auf
+     * @param eingabe, Name des Gegenstandes
+     */
     private void findItemAndAddToInventory(String eingabe) {
         for (Gegenstand g : this.spieler.aktuellerRaum.getAlleGegenstaende()) {
             if (g.getName().equals(eingabe)) {
@@ -45,6 +49,10 @@ public class CommandTake implements ICommands {
         System.out.println("Diesen Gegenstand gibt es nur in einer anderen Matrix. Boom!");
     }
 
+	/**
+	 * Prüft ob ein Item ausgewählt wurde
+	 * @param eingabe, ist der Itemname
+	 */
     private void noItemSelected(String eingabe) {
         if (eingabe == "") {
             System.out.println("Welchen Gegenstand möchten Sie aufnehmen?");
@@ -54,16 +62,25 @@ public class CommandTake implements ICommands {
         }
     }
 
+    /**
+     * Gibt die vollständige Beschreibung als String zurück
+     */
     @Override
     public String getDescription() {
         return "Mit dem Befehl 'take' und der Angabe eines Items, wird dieses Item in das Spieler inventar aufgenommen.";
     }
 
+    /**
+     * Gibt den Namen des Befehles als String zurück
+     */
     @Override
     public String getCommand() {
         return "take";
     }
 
+	/**
+	 * Gibt die korrekte Syntax als String zurück
+	 */
     @Override
     public String getSyntax() {
         return "Befehl 'take': take <Itemname>";

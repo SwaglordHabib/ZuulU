@@ -7,10 +7,10 @@
  * 
  * Befehle werden von Benutzern dieser Klasse auf Gültigkeit
  * überprüft. Wenn ein Spieler einen ungültigen Befehl eingegeben
- * hat (ein unbekanntes Befehlswort), dann ist das Befehlswort <null>.
+ * hat (ein unbekanntes Befehlswort), dann ist das Befehlswort.
  *
  * Wenn der Befehl nur aus einem Wort bestand, dann ist das
- * zweite Wort <null>.
+ * zweite Wort.
  * 
  * @author  Michael Kölling und David J. Barnes
  * @version 2008.03.30

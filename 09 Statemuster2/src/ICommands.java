@@ -1,7 +1,7 @@
 
 public interface ICommands {
 	/**
-	 *
+	 * Führt den mitgelieferten Befehl aus
 	 *
 	 * @param befehl
 	 */

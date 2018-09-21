@@ -21,17 +21,26 @@ public class CommandSearchInventar implements ICommands{
             System.out.println(g.getName());
         }
     }
-
+    
+    /**
+     * Gibt die vollständige Beschreibung als String zurück
+     */
     @Override
     public String getDescription() {
         return "Dieser Befehl gibt das Spielerinventar aus";
     }
 
+    /**
+     * Gibt den Namen des Befehles als String zurück
+     */
     @Override
     public String getCommand() {
         return "inventar";
     }
 
+	/**
+	 * Gibt die korrekte Syntax als String zurück
+	 */
     @Override
     public String getSyntax() {
         return "Befehl 'inventar': inventar";

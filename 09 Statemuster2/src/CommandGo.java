@@ -18,20 +18,28 @@ public class CommandGo implements ICommands {
 	}
 
     /**
-     *
+     * Führt den mitgelieferten Befehl aus
      * @param befehl
      */
 	@Override
 	public void execute(Befehl befehl) {
-		this.raum = spieler.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
-		teleporter(befehl);
-		if (raum.getMonsterliste().size() > 0) {
-			fight(befehl);
+		try {
+			this.raum = spieler.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
+			teleporter(befehl);
+			if (raum.getMonsterliste().size() > 0) {
+				fight(befehl);
+			}
+			spieler.setAktuellerRaum(raum);
+			System.out.println(raumInfoausgeben(raum));
+		} catch (Exception e) {
+			System.out.println("Dieser Raum ist nicht vorhanden!\n");
 		}
-		spieler.setAktuellerRaum(raum);
-		System.out.println(raumInfoausgeben(raum));
 	}
 
+	/**
+	 * Teleportiert den Spieler, sofern der angegebene Raum eine Teleporter ist
+	 * @param befehl
+	 */
 	private void teleporter(Befehl befehl) {
 		if (raum.isTeleporter()) {
 			spieler.setAktuellerRaum(Spiel.getRaumliste().get(Spiel.getRandom(Spiel.getRaumliste().size() - 1)));
@@ -39,6 +47,10 @@ public class CommandGo implements ICommands {
 		}
 	}
 
+	/**
+	 * Startet den Kampf, sofern Monster vorhanden sind
+	 * @param befehl
+	 */
 	private void fight(Befehl befehl) {
 		StringBuilder sb = new StringBuilder();
 		String eingabe;
@@ -97,20 +109,34 @@ public class CommandGo implements ICommands {
 		scanner.close();
 	}
 
+    /**
+     * Gibt die vollständige Beschreibung als String zurück
+     */
 	@Override
 	public String getDescription() {
 		return "Mit dem Befehl 'go' und der Angabe einer Richtung, wird der Raum gewechselt.";
 	}
 
+	/**
+	 * Gibt die korrekte Syntax als String zurück
+	 */
 	@Override
 	public String getSyntax() {
 		return "Befehl 'go': go <Richtung>";
 	}
 
+	/**
+	 * Gibt die Beschreibung des angegebenen Raumes als String zurück
+	 * @param r, ist der Raum, welcher ausgelesen werden soll
+	 * @return
+	 */
 	private String raumInfoausgeben(Raum r) {
 		return r.getLangeBeschreibung();
 	}
 
+    /**
+     * Gibt den Namen des Befehles als String zurück
+     */
 	@Override
 	public String getCommand() {
 		return "go";

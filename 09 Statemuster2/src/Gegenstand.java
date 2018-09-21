@@ -20,14 +20,26 @@ public class Gegenstand {
 		this.essbar = essbar;
 	}
 
+	/**
+	 * Gibt den Namen des Gegenstandes als String zurück
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Prüft ob der Gegenstand essbar ist
+	 * @return 'true', wenn Gegenstand essbar
+	 */
 	public boolean isEssbar() {
 		return essbar;
 	}
 
+	/**
+	 * Gibt das Gewicht des Gegenstandes als Double zurück
+	 * @return gewicht
+	 */
 	public double getGewicht() {
 		return gewicht;
 	}

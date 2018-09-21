@@ -192,10 +192,18 @@ public class Spiel {
 	}
 
 
+	/**
+	 * Stellt das Spiel auf beendet
+	 * @param beendet
+	 */
 	public static void setBeendet(boolean beendet) {
 		Spiel.beendet = beendet;
 	}
 
+	/**
+	 * Gibt eine Liste aller Räume zurück
+	 * @return List, alle Räume
+	 */
     public static List<Raum> getRaumliste() {
 		return raumliste;
 	}

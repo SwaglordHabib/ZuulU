@@ -6,6 +6,11 @@ public class Bewegungsunfaehig implements IZustand {
 
 	}
 
+	/**
+	 * Prüft ob eine Instanz der Klasse vorhanden ist
+	 * 
+	 * @return eine vorhandene oder neu erstellte Instanz
+	 */
 	public static IZustand getInstance() {
 		if (instance == null) {
 			instance = new Bewegungsunfaehig();
@@ -13,13 +18,18 @@ public class Bewegungsunfaehig implements IZustand {
 		return instance;
 	}
 
+	/**
+	 * Sofern der Zustand 'Bewegungsunfähig' ist, wird die Instanz von der Klasse 'Verwundet' zurück gegeben
+	 * 
+	 * @return 'instance', gibt die Instanz von 'Verwundet' zurück
+	 */
 	@Override
 	public IZustand heilen() {
 		return Verwundet.getInstance();
 	}
 
 	/**
-	 * Gibt die Instanz von sich selbst zurück, da man sich nach
+	 * Gibt die Instanz von sich selbst zurück
 	 *
 	 * @return 'instance', gibt die Instanze von sich selber zurück
 	 */
@@ -40,7 +50,7 @@ public class Bewegungsunfaehig implements IZustand {
 	}
 
 	/**
-	 * Name des Statuses
+	 * Name des Zustandes
 	 *
 	 * @return
 	 */
@@ -51,7 +61,7 @@ public class Bewegungsunfaehig implements IZustand {
 
 	/**
 	 *
-	 * @return
+	 * @return 'Tot.instance', gibt die Instanze von Tot zurück
 	 */
 	@Override
 	public IZustand toeten() {

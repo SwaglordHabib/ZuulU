@@ -13,7 +13,7 @@ public class CommandHelp implements ICommands {
 	}
 
     /**
-     *
+     * Führt den mitgelieferten Befehl aus
      * @param befehl
      */
 	@Override
@@ -27,16 +27,25 @@ public class CommandHelp implements ICommands {
 		}
 	}
 
+    /**
+     * Gibt die vollständige Beschreibung als String zurück
+     */
 	@Override
 	public String getDescription() {
 		return "Mit dem Befehl 'help', wird dir eine Liste aller Befehle ausgegeben.";
 	}
 
+    /**
+     * Gibt den Namen des Befehles als String zurück
+     */
 	@Override
 	public String getCommand() {
 		return "help";
 	}
 
+	/**
+	 * Gibt die korrekte Syntax als String zurück
+	 */
 	@Override
 	public String getSyntax() {
 		return "Befehl 'help': help";

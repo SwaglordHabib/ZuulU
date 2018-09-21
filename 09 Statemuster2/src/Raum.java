@@ -48,10 +48,18 @@ public class Raum {
 		ausgaenge.put(richtung, nachbar);
 	}
 
+	/**
+	 * Prüft, ob der Raum ein Teleporter ist
+	 * @return 'true', wenn Raum ein Teleporter ist
+	 */
 	public boolean isTeleporter() {
 		return teleporter;
 	}
 
+	/**
+	 * Gibt eine Liste aller Monster des Raumes zurück
+	 * @return List, Liste aller Monster des Raumes
+	 */
 	public List<Monster> getMonsterliste() {
 		return monsterliste;
 	}
@@ -100,18 +108,34 @@ public class Raum {
 		return "Sie sind " + beschreibung + ".\n" + ausgaengeToString() + "\nGegenstände: " + gegenstaendeToString();
 	}
 
+	/**
+	 * Legt den mitgelieferten Gegenstand ab
+	 * @param g
+	 */
 	public void gegenstandAblegen(Gegenstand g) {
 		gegenstaende.add(g);
 	}
 
+	/**
+	 * Gibt eine Liste aller Gegenstände des Raumes zurück
+	 * @return 
+	 */
 	public ArrayList<Gegenstand> getAlleGegenstaende() {
 		return gegenstaende;
 	}
 
+	/**
+	 * Entfernt den mitgelieferten Gegenstand aus dem Raum
+	 * @param g, ist der Gegenstand, welcher entfernt wird
+	 */
 	public void entferneGegenstand(Gegenstand g) {
 		gegenstaende.remove(g);
 	}
 
+	/**
+	 * Gibt alle Gegenstände des Raumes als String zurück
+	 * @return
+	 */
 	public String gegenstaendeToString() {
 		StringBuilder ergebnis = new StringBuilder();
 		if (gegenstaende.isEmpty()) {
@@ -123,6 +147,10 @@ public class Raum {
 		}
 	}
 
+	/**
+	 * Fügt das mitgelieferte Monster dem Raum hinzu
+	 * @param m
+	 */
 	public void addMonster(Monster m) {
 		this.monsterliste.add(m);
 	}

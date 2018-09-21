@@ -6,6 +6,11 @@ public class Verwundet implements IZustand {
 
 	}
 
+	/**
+	 * Prüft ob eine Instanz der Klasse vorhanden ist
+	 * 
+	 * @return eine vorhandene oder neu erstellte Instanz
+	 */
 	public static IZustand getInstance() {
 		if (instance == null) {
 			instance = new Verwundet();
@@ -13,31 +18,49 @@ public class Verwundet implements IZustand {
 		return instance;
 	}
 
+	/**
+	 * Gibt die Instanz der Klasse 'Bewegungsunfaehig' zurück
+	 */
 	@Override
 	public IZustand heilen() {
 		return Gesund.getInstance();
 	}
 
+	/**
+	 * Gibt die Instanz der Klasse 'Bewegungsunfaehig' zurück
+	 */
 	@Override
 	public IZustand leichtVerletzen() {
 		return Bewegungsunfaehig.getInstance();
 
 	}
 
+	/**
+	 * Gibt die Instanz der Klasse 'Verwundet' zurück
+	 */
 	@Override
 	public IZustand starkVerletzen() {
 		return Verwundet.getInstance();
 	}
 
+	/**
+	 * Gibt den Namen des Zustandes als String zurück
+	 */
 	public String toString() {
 		return "Verwundet";
 	}
 
+	/**
+	 * Gibt die Instanz der Klasse 'Tot' zurück
+	 */
 	@Override
 	public IZustand toeten() {
 		return Tot.getInstance();
 	}
 
+	/**
+	 * Ändert den Zustand anhand der aktuelle HP
+	 */
 	@Override
 	public void changeZustand(Entity e) {
 		if (e.hp >= e.maxHp * 0.7) {

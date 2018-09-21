@@ -12,7 +12,7 @@ public class Befehlswoerter {
 	private static final String gueltigeBefehle[] = { "go", "quit", "help", "look", "take", "drop", "eat" };
 
 	/**
-	 * Konstruktor - initialisiere die Befehlsw�rter.
+	 * Konstruktor - initialisiere die Befehlswoerter.
 	 */
 	public Befehlswoerter() {
 		// nichts zu tun momentan...

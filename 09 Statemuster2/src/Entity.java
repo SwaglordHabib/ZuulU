@@ -19,16 +19,16 @@ public class Entity {
 	}
 
     /**
+     * Gibt den aktuellen Raum zurück
      *
-     *
-     * @return
+     * @return Raum, der aktuelle Raum
      */
 	public Raum getAktuellerRaum() {
 		return aktuellerRaum;
 	}
 
     /**
-     *
+     * Setzt den aktuellen Raum auf den mitgelieferten Raum
      *
      * @param aktuellerRaum
      */
@@ -37,14 +37,18 @@ public class Entity {
 	}
 
     /**
+     * Fügt dem mitgelieferten Entity schaden zu
      *
-     *
-     * @param e
+     * @param e, ist das anzugreifende Entity
      */
 	public void doDamage(Entity e) {
 		e.takeDamage((int) (this.staerke * Math.PI));
 	}
 
+	/**
+	 * Zieht den angegebenen schaden von der aktuellen HP ab
+	 * @param damage, ist der abzuziehende Schaden
+	 */
 	private void takeDamage(int damage) {
 		this.hp -= damage;
 		this.aktuellerZustand.changeZustand(this);
