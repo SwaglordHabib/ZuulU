@@ -118,8 +118,6 @@ public class Spiel {
 		System.out.println("Danke für dieses Spiel. Auf Wiedersehen.");
 	}
 
-
-
 	/**
 	 * Einen Begrüßungstext für den Spieler ausgeben.
 	 */
@@ -133,9 +131,9 @@ public class Spiel {
 
 	}
 
-    /**
-     * Initialiesiert alle Befehle     *
-     */
+	/**
+	 * Initialiesiert alle Befehle *
+	 */
 	private void initCommands() {
 		commandList.put("go", new CommandGo(spieler));
 		commandList.put("take", new CommandTake(spieler));
@@ -168,35 +166,35 @@ public class Spiel {
 		System.out.println();
 	}
 
-
-    /**
-     * Erstellt eine "zufällige" Zahl, bis zu der Zahl die im Parameter übergeben wurde
-     * @param max
-     * @return
-     */
+	/**
+	 * Erstellt eine "zufällige" Zahl, bis zu der Zahl die im Parameter übergeben
+	 * wurde
+	 * 
+	 * @param max
+	 * @return
+	 */
 	public static int getRandom(int max) {
 		Random rnd = new Random();
 		return rnd.nextInt(max);
 	}
 
-    /**
-     * Erstellt die Monster und und speichert diese zufällig in einem Raum
-     */
+	/**
+	 * Erstellt die Monster und und speichert diese zufällig in einem Raum
+	 */
 	private void spawnMobs() {
 		Random rnd = new Random();
-		for (int i = 0; i < raumliste.size() / 2; i++) {
+		for (int i = 0; i < raumliste.size() / 2.5; i++) {
 			rnd.setSeed(System.currentTimeMillis());
-			Monster m = new Monster(100, 5);
+			Monster m = new Monster(100, 2);
 			raumliste.get(Spiel.getRandom(2)).addMonster(m);
 		}
 	}
-
 
 	public static void setBeendet(boolean beendet) {
 		Spiel.beendet = beendet;
 	}
 
-    public static List<Raum> getRaumliste() {
+	public static List<Raum> getRaumliste() {
 		return raumliste;
 	}
 }

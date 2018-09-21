@@ -7,20 +7,21 @@ public class CommandGo implements ICommands {
 	private Raum alterRaum;
 	private Scanner scanner;
 
-    /**
-     * Erzeugt CommandGo und initialisiert den Spieler und den Raum aus dem der Spieler kam
-     *
-     * @param spieler
-     */
+	/**
+	 * Erzeugt CommandGo und initialisiert den Spieler und den Raum aus dem der
+	 * Spieler kam
+	 *
+	 * @param spieler
+	 */
 	public CommandGo(Spieler spieler) {
 		this.spieler = spieler;
 		this.alterRaum = spieler.aktuellerRaum;
 	}
 
-    /**
-     *
-     * @param befehl
-     */
+	/**
+	 *
+	 * @param befehl
+	 */
 	@Override
 	public void execute(Befehl befehl) {
 		this.raum = spieler.getAktuellerRaum().getAusgang(befehl.gibZweitesWort());
@@ -44,7 +45,7 @@ public class CommandGo implements ICommands {
 		String eingabe;
 		scanner = new Scanner(System.in);
 		boolean attacke = false;
-		sb.append("Es sind " + raum.getMonsterliste().size() + "Monster in diesem Raum!\n");
+		sb.append("Es sind " + raum.getMonsterliste().size() + " Monster in diesem Raum!\n");
 		sb.append("Innerhalb eines Kampfes, kannst du 'attacke' oder 'fluechten' verwenden.\n");
 		sb.append("Wenn du fluechtest, kannst du den Raum nicht betreten!\n");
 		System.out.println(sb);
@@ -54,7 +55,7 @@ public class CommandGo implements ICommands {
 		do {
 			eingabe = scanner.nextLine().toLowerCase();
 
-			if (eingabe == "attacke" || eingabe == "a") {
+			if (eingabe.contains("attacke")) {
 
 				for (int i = 0; i < raum.getMonsterliste().size(); i++)
 					System.out.println("Monster " + i + " Leben: " + raum.getMonsterliste().get(i).hp);
@@ -65,27 +66,33 @@ public class CommandGo implements ICommands {
 					System.out.println("Welches Monster m�chtest du angreifen: ");
 					eingabe = scanner.nextLine();
 					try {
+						// Monster anngreifen
 						spieler.doDamage(raum.getMonsterliste().get(Integer.parseInt(eingabe)));
+						// schauen ob das Monster tot ist
 						if (raum.getMonsterliste().get(Integer.parseInt(eingabe)).aktuellerZustand == Tot
 								.getInstance()) {
 							raum.getMonsterliste().remove(Integer.parseInt(eingabe));
 							System.out.println("Das Monster wurde besiegt!!! Gurr!");
+							if (raum.getMonsterliste().size() == 0) {
+								return;
+							}
 						}
-
+						// monster greifen an
 						for (Monster m : raum.getMonsterliste()) {
 							m.doDamage(spieler);
-
+							// schauen ob der Spieler tot ist
+							System.out.println("Du hast noch " + spieler.hp + ".");
 							if (spieler.aktuellerZustand == Tot.getInstance()) {
 								System.out.println("Du wurdest besiegt!");
 								System.exit(0);
 							}
 						}
-						attacke = false;
+
 					} catch (Exception e) {
 						System.out.println("Dieses Monster gibt es nicht.");
 					}
 				}
-			} else if (eingabe == "fluechten" || eingabe == "f") {
+			} else if (eingabe.contains(eingabe)) {
 				this.raum = this.alterRaum;
 				execute(befehl);
 				System.out.println("Du bist geflohen, skrr!");
